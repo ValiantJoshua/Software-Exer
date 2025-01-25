@@ -23,7 +23,12 @@ export default function Menu() {
   ];
 
   return (
-    <section className="text-center">
+    <section id="Menu" className="text-center mb-10">
+      <div className="absolute h-full left-0 right-0 w-full justify-start -z-10">
+        <div className="absolute left-40 -top-20 text-left -z-10 ">
+          <img src={'/gambar6.png'} className="w-52 h-52  "></img>
+        </div>
+      </div>
       <div className="text-center">
         <h3 className="text-gray-600 font-semibold mt-4">CHECK OUR</h3>
         <h2 className="text-primary font-bold text-4xl mb-4">Menu</h2>
