@@ -1,24 +1,35 @@
-import Cookies from "js-cookie"; // Import js-cookie library
-import { useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/app/lib/supabaseClient";
 
 export default function Dashboard() {
+  const [user, setUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    // Check for the token in the cookie
-    const token = Cookies.get("supabase-token");
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+      } else {
+        setUser(session.user);
+      }
+    };
 
-    if (!token) {
-      // Redirect to login if no token is found
-      router.push("/login");
-    }
+    getSession();
   }, [router]);
 
   return (
-    <section className="mt-8">
-      <h1 className="text-4xl text-center">Welcome to the Dashboard</h1>
-      <p className="text-center mt-4">This page is protected.</p>
+    <section>
+      {user ? (
+        <div>
+          <h1>Welcome to the Dashboard, {user.email}</h1>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </section>
   );
 }
