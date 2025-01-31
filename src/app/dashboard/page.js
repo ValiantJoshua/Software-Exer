@@ -6,6 +6,7 @@ import { supabase } from "@/app/lib/supabaseClient";
 import Hero from "../components/layout/Hero";
 import Menu from "../components/layout/Menu";
 import About from "../components/layout/About";
+import ReviewPage from "../components/layout/Review";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -40,6 +41,7 @@ export default function Dashboard() {
 
       <Menu />
       <About />
+      <ReviewPage/>
     </section>
   );
 }

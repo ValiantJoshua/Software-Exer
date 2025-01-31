@@ -12,18 +12,23 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
     if (error) {
       setError(error.message);
     } else {
-      router.push("/dashboard");
+      router.push("/profile");
     }
   };
 
   return (
     <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl font-semibold my-4">Login</h1>
+      <h1 className="text-center text-primary text-4xl font-semibold my-4">
+        Login
+      </h1>
       <form className="block max-w-xs mx-auto" onSubmit={handleLogin}>
         {error && <p className="text-red-500">{error}</p>}
         <p className="font-semibold text-gray-700">Email</p>
@@ -48,10 +53,13 @@ export default function LoginPage() {
         >
           Login
         </button>
-        {/* Link to Register */}
+      
         <div className="text-gray-500 flex my-4 justify-center">
-          Don't have an account? 
-          <a href="/register" className="font-semibold text-gray-900 ml-1 hover:text-gray-600">
+          Don't have an account?
+          <a
+            href="/register"
+            className="font-semibold text-gray-900 ml-1 hover:text-gray-600"
+          >
             Register
           </a>
         </div>

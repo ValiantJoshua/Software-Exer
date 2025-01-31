@@ -1,3 +1,6 @@
+
+import UserReview from "@/app/components/layout/UserReview";
+
 export default async function ReviewPage() {
  const res = await fetch("https://randomuser.me/api/?results=6"); //mengambil 6 random user 
  const data = await res.json();
@@ -27,6 +30,7 @@ export default async function ReviewPage() {
          </div>
        ))}
      </div>
+     <UserReview/>
    </section>
  );
 }
