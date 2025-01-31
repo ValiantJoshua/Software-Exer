@@ -30,10 +30,10 @@ export default function About() {
                 sederhana: menghadirkan camilan khas Indonesia yang lezat dan
                 terjangkau untuk semua orang. Berawal dari resep keluarga yang
                 diwariskan turun-temurun, kami mulai menjual Tahu Bulat di
-                sebuah gerobak kecil di pinggir jalan. Dengan semangat inovasi,
+                 gerobak kecil di pinggir jalan. Dengan semangat dan inovasi,
                 kami terus mengembangkan rasa. Sejak saat itu, toko kami tumbuh
                 menjadi tempat di mana cita rasa berkumpul, membawa kebahagiaan
-                dalam setiap gigitan Tahu Bulat.
+                dalam setiap gigitannya.
               </p>
             </div>
           </div>
@@ -52,14 +52,14 @@ export default function About() {
               <h3 className="text-xl md:text-2xl xl:text-3xl px-3 font-semibold">Our Vision</h3>
             </div>
               <p className="max-w-2xl font-serif text-justify">
-                Kami memiliki visi untuk membawa Tahu Bulat, camilan khas
+                Kami memiliki visi untuk membawa Tahu Bulat, snack khas
                 Indonesia, dikenal di seluruh dunia. Dengan rasa yang sederhana
-                namun menggugah selera, Tahu Bulat adalah simbol kreativitas dan
+                namun menggugah selera, Tahu Bulat adalah salah satu makanan dari 
                 budaya kuliner Indonesia. Melalui inovasi rasa, kualitas
                 terbaik, dan semangat berbagi, kami ingin menjadikan Tahu Bulat
                 tidak hanya sebagai camilan, tetapi juga sebagai cara untuk
                 memperkenalkan kehangatan dan keragaman budaya Indonesia ke
-                berbagai belahan dunia.
+                berbagai negara di dunia.
               </p>
             </div>
           </div>

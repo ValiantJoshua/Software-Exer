@@ -10,21 +10,20 @@ export default function AuthCallback() {
   useEffect(() => {
     const checkSession = async () => {
       setLoading(true);
-      
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
       if (session) {
-        router.replace("/dashboard"); // ✅ Redirect to Dashboard
+        router.replace("/dashboard");
       } else {
-        router.replace("/login"); // ✅ Redirect to Login if session is null
+        router.replace("/login");
       }
 
       setLoading(false);
     };
 
-    // ✅ Listen for auth state changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         if (session) {
@@ -42,5 +41,9 @@ export default function AuthCallback() {
     };
   }, [router]);
 
-  return <p>{loading ? "Confirming your account, Please wait..." : "Redirecting..."}</p>;
+  return (
+    <p>
+      {loading ? "Confirming your account, Please wait..." : "Redirecting..."}
+    </p>
+  );
 }

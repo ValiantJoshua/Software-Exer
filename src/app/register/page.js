@@ -14,7 +14,6 @@ export default function RegisterPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
@@ -37,7 +36,9 @@ export default function RegisterPage() {
       if (profileError) {
         setError("Failed to create profile: " + profileError.message);
       } else {
-        setMessage("Registration successful! Please check your email for confirmation.");
+        setMessage(
+          "Registration successful! Please check your email for confirmation."
+        );
         router.push("/dashboard"); // Redirect ke dashboard
       }
     }

@@ -1,10 +1,9 @@
-
 "use client";
 import UserReviews from "../components/layout/UserReview";
 import { useState } from "react";
 import { supabase } from "@/app/lib/supabaseClient";
 
-export default function UserReview() {
+export default function addReview() {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -15,14 +14,15 @@ export default function UserReview() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Get the current user
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) {
       setError("Plese log in first");
       return;
     }
 
-    // Insert the review into the database
+    // Masukan data ke database
     const { error: insertError } = await supabase
       .from("reviews")
       .insert([{ user_id: user.id, name, city, country, content }]);
@@ -40,9 +40,10 @@ export default function UserReview() {
 
   return (
     <section id="Review" className="mt-8">
-      <h1 className="text-center text-primary text-4xl font-semibold my-4">User Reviews</h1>
+      <h1 className="text-center text-primary text-4xl font-semibold my-4">
+        User Reviews
+      </h1>
 
-      {/* Submit Review Form */}
       <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mb-8">
         <h2 className="text-2xl font-bold mb-4">Submit a Review</h2>
         {error && <p className="text-red-500">{error}</p>}
@@ -100,7 +101,6 @@ export default function UserReview() {
         </form>
       </div>
 
-      {/* Display User-Submitted Reviews */}
       <UserReviews />
     </section>
   );
