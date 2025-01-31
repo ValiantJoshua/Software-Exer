@@ -1,24 +1,46 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/lib/supabaseClient";
 
 export default function AuthCallback() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      setLoading(true);
+      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
       if (session) {
-        router.replace("/dashboard"); 
+        router.replace("/dashboard"); // ✅ Redirect to Dashboard
       } else {
-        router.replace("/login"); 
+        router.replace("/login"); // ✅ Redirect to Login if session is null
       }
+
+      setLoading(false);
     };
 
-    checkSession();
-  }, []);
+    // ✅ Listen for auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session) {
+          router.replace("/dashboard");
+        } else {
+          router.replace("/login");
+        }
+      }
+    );
 
-  return <p>Confirming your account, Please wait.</p>;
+    checkSession();
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [router]);
+
+  return <p>{loading ? "Confirming your account, Please wait..." : "Redirecting..."}</p>;
 }

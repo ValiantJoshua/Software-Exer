@@ -1,5 +1,5 @@
-"use client";
 
+"use client";
 import UserReviews from "../components/layout/UserReview";
 import { useState } from "react";
 import { supabase } from "@/app/lib/supabaseClient";

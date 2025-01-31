@@ -1,3 +1,4 @@
+
 import MenuItem from "./MenuItem";
 
 export default function Menu() {
@@ -6,19 +7,19 @@ export default function Menu() {
       image: "/original.png",
       title: "Original Tahu Bulat",
       description: "Fresh and crispy Tahu Bulat with a classic taste.",
-      price:"Rp 10.000"
+      price: "Rp 10.000",
     },
     {
-      image: "./cheese.png",
+      image: "/cheese.png",
       title: "Cheese Tahu Bulat",
       description: "Cheesy and delicious, a twist on the classic snack.",
-      price:"Rp 17.000"
+      price: "Rp 17.000",
     },
     {
-      image: "./spicy.png",
+      image: "/spicy.png",
       title: "Spicy Tahu Bulat",
       description: "For those who love a spicy kick in every bite.",
-      price:"Rp 15.000"
+      price: "Rp 15.000",
     },
   ];
 
@@ -26,7 +27,7 @@ export default function Menu() {
     <section id="Menu" className="text-center mb-10">
       <div className="absolute h-full left-0 right-0 w-full justify-start -z-10">
         <div className="absolute left-40 -top-20 text-left -z-10 ">
-          <img src={'/gambar6.png'} className="w-52 h-52  "></img>
+          <img src={"/gambar6.png"} className="w-52 h-52  "></img>
         </div>
       </div>
       <div className="text-center">

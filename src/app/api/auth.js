@@ -1,7 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
 
-
-
 export const registerUser = async (email, password) => {
   const { data, error } = await supabase.auth.signUp({ email, password });
 
@@ -15,7 +13,7 @@ export const registerUser = async (email, password) => {
   let user = sessionData?.session?.user;
 
   if (!user) {
-    console.error("User ID not found after signup, retrying...");
+    console.error("User ID not found after signup, retrying");
     return { data: null, error: "User ID not found after signup" };
   }
 

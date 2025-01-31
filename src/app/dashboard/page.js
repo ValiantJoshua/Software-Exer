@@ -9,39 +9,44 @@ import About from "../components/layout/About";
 import ReviewPage from "../components/layout/Review";
 
 export default function Dashboard() {
-  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Track loading state
   const router = useRouter();
 
   useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/login");
-      } else {
-        setUser(session.user);
+    const checkSession = async () => {
+      try {
+        // Check if the user has an active session
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
+        if (error || !session) {
+          // If no session, redirect to login
+          router.replace("/login");
+        } else {
+          // If session exists, allow access to the dashboard
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Error checking session:", err);
+        router.replace("/login"); // Redirect to login on error
       }
     };
 
-    getSession();
+    checkSession();
   }, [router]);
+
+  if (loading) {
+    return <p className="text-center text-gray-500">Loading...</p>;
+  }
 
   return (
     <section>
       <Hero />
-
-      {user ? (
-        <div className="font-semibold text-2xl mb-16"> Welcome! 
-          <h1 className="font-normal text-lg" > {user.email} </h1>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-
       <Menu />
       <About />
-      <ReviewPage/>
+      
     </section>
   );
 }

@@ -44,7 +44,10 @@ export default function Header() {
         </Link>
         <nav className=" items-center  flex gap-8 text-gray-500 font-semibold py-2 justify-start ml-4">
           {user ? (
-            <Link className="hover:text-gray-800 hover:underline" href={"/dashboard"}>
+            <Link
+              className="hover:text-gray-800 hover:underline"
+              href={"/dashboard"}
+            >
               Dashboard
             </Link>
           ) : (
