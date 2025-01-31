@@ -13,20 +13,33 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signUp({
+
+    
+    const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/login`,
+        emailRedirectTo: "http://localhost:3000/auth/callback",
       },
     });
-    
-    if (error) {
-      setError(error.message);
-    } else {
-      setMessage(
-        "Registration successful! Please check your email for confirmation."
-      );
+
+    if (signUpError) {
+      setError(signUpError.message);
+      return;
+    }
+
+    // memasukan data user ke database
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert([{ id: data.user.id, email: data.user.email }]);
+
+      if (profileError) {
+        setError("Failed to create profile: " + profileError.message);
+      } else {
+        setMessage("Registration successful! Please check your email for confirmation.");
+        router.push("/dashboard"); // Redirect ke dashboard
+      }
     }
   };
 
@@ -37,7 +50,7 @@ export default function RegisterPage() {
       </h1>
       <form className="block max-w-xs mx-auto" onSubmit={handleRegister}>
         {error && <p className="text-red-500">{error}</p>}
-        {message && <p className="text-green-500">{message}</p>}
+        {message && <p className="text-green-600">{message}</p>}
         <p className="font-semibold text-gray-700">Email</p>
         <input
           type="email"

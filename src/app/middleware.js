@@ -1,24 +1,26 @@
 import { NextResponse } from "next/server";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
 export async function middleware(req) {
   const res = NextResponse.next();
-  const supabase = createServerComponentClient({ cookies: req.cookies });
+  const supabase = createMiddlewareClient({ req, res });
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const protectedRoutes = ["/dashboard"];
-  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    if (!session) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+  const isAuthRoute = req.nextUrl.pathname.startsWith("/dashboard");
+
+  if (isAuthRoute && !session) { //cek user
+    const redirectUrl = new URL("/login", req.url);
+    redirectUrl.searchParams.set("redirectedFrom", req.nextUrl.pathname);
+    return NextResponse.redirect(redirectUrl);
   }
 
   return res;
 }
 
+
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*"], 
 };

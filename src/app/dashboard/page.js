@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/lib/supabaseClient";
+import Hero from "../components/layout/Hero";
+import Menu from "../components/layout/Menu";
+import About from "../components/layout/About";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -10,7 +13,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
         router.push("/login");
       } else {
@@ -23,13 +28,18 @@ export default function Dashboard() {
 
   return (
     <section>
+      <Hero />
+
       {user ? (
-        <div>
-          <h1>Welcome to the Dashboard, {user.email}</h1>
+        <div className="font-semibold text-2xl mb-16"> Welcome! 
+          <h1 className="font-normal text-lg" > {user.email} </h1>
         </div>
       ) : (
         <p>Loading...</p>
       )}
+
+      <Menu />
+      <About />
     </section>
   );
 }

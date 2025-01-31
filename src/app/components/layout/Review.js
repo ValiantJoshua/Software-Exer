@@ -1,5 +1,5 @@
 export default async function ReviewPage() {
- const res = await fetch("https://randomuser.me/api/?results=6"); // Fetch 5 random users
+ const res = await fetch("https://randomuser.me/api/?results=6"); //mengambil 6 random user 
  const data = await res.json();
  const reviews = data.results;
 
@@ -10,7 +10,7 @@ export default async function ReviewPage() {
        {reviews.map((user, index) => (
          <div
            key={index}
-           className="p-6 bg-gray-200 rounded-lg shadow-md text-center"
+           className="p-6 bg-gray-300 rounded-lg shadow-md text-center  hover:bg-slate-200 hover:shadow-lg hover:shadow-black/25 transition-all"
          >
            <img
              src={user.picture.large}
@@ -18,7 +18,7 @@ export default async function ReviewPage() {
              className="rounded-full w-20 h-20 mx-auto"
            />
            <h3 className="mt-4 font-semibold text-lg">{`${user.name.first} ${user.name.last}`}</h3>
-           <p className="text-gray-600 text-sm italic">
+           <p className="text-gray-700 text-sm italic">
              "{user.location.city}, {user.location.country}"
            </p>
            <p className="text-gray-500 mt-2">
